@@ -5,9 +5,13 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"time"
 )
 
 func main() {
+
+	start := time.Now()
+
 	resp, _ := http.Get("http://dev.markitondemand.com/Api/v2/Quote?symbol=googl")
 	defer resp.Body.Close()
 	body, _ := ioutil.ReadAll(resp.Body)
@@ -15,7 +19,11 @@ func main() {
 	quote := new(QuoteResponse)
 	xml.Unmarshal(body, &quote)
 
-	fmt.Printf("%s: %.2f", quote.Name, quote.LastPrice)
+	fmt.Printf("%s: %.2f\n", quote.Name, quote.LastPrice)
+
+	elapsed := time.Since(start)
+
+	fmt.Printf("Execution time: %s", elapsed)
 }
 
 type QuoteResponse struct {
