@@ -6,11 +6,15 @@ import (
 
 func main() {
 	go func() {
-		println("Hello")
+		for i := 0; i < 100; i++ {
+			println("Hello")
+		}
 	}()
 
 	go func() {
-		println("Go")
+		for i := 0; i < 100; i++ {
+			println("Go")
+		}
 	}()
 
 	// we put the main thread to sleep to
